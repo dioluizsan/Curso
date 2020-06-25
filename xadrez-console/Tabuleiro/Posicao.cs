@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace Tabuleiro {
+namespace tabuleiro {
     class Posicao {
         public int linha{ get; set; }
         public int coluna{ get; set; }
