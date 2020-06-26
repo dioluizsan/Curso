@@ -3,7 +3,6 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.Text;
 
-
 namespace tabuleiro {
     class Tabuleiro {
         public int linhas { get; set; }
@@ -22,27 +21,28 @@ namespace tabuleiro {
         public Peca peca(Posicao pos) {
             return pecas[pos.linha, pos.coluna];
         }
-        public bool existePeca(Posicao pos) {
+        public bool existePeca(Posicao pos){
             validarPosicao(pos);
             return peca(pos) != null;
         }
         public void colocarPeca(Peca P, Posicao pos) {
-            if(existePeca(pos)){
-                throw new TabuleiroException("Ja existe peca nessa posição!");
+            if (existePeca(pos)){
+                throw new tabuleiroException("Ja existe peça na posição!");
             }
             pecas[pos.linha, pos.coluna] = P;
             P.posicao = pos;
         }
 
-        public bool posicaValida(Posicao pos) {
-            if (pos.linha < 0 || pos.linha >= linhas || pos.coluna < 0 || pos.coluna > colunas) {
+        public bool posicaoValida(Posicao pos){
+            if (pos.linha<0 || pos.linha>=linhas||pos.coluna<0||pos.coluna>=colunas){
                 return false;
             }
             return true;
         }
-        public void validarPosicao(Posicao pos) {
-            if (!posicaValida(pos)) {
-                throw new TabuleiroException("Posicao invalida!");
+
+        public void validarPosicao(Posicao pos){
+            if(!posicaoValida(pos)){
+                throw new tabuleiroException("Posicao Invalida!");
             }
         }
     }
