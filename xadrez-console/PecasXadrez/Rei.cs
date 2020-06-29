@@ -11,6 +11,23 @@ namespace PecasXadrez {
         public override string ToString() {
             return "R";
         }
+
+        private bool podeMover(Posicao pos){
+            Peca p = tab.peca(pos);
+            return p == null || p.cor != cor;
+        }
+
+        public override bool[,] movimentosPossiveis() {
+            bool[,] matriz = new bool[tab.linhas,tab.colunas] ;
+            Posicao pos = new Posicao(0, 0);
+
+            //Para cima
+            pos.definirValoresDaPosicao(posicao.linha-1, posicao.coluna);
+            if(tab.posicaoValida(pos)&&podeMover(pos)){
+                matriz[pos.linha, pos.coluna] = true;
+            }
+            return matriz;
+        }
     }
 }
 
