@@ -7,6 +7,33 @@ using tabuleiro;
 namespace xadrez_console {
     class Tela {
 
+    public static void imprimirPartida(PartidaDeXadrez partida){
+            imprimeTabuleiro(partida.tab);
+            Console.WriteLine();
+            imprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + partida.turno);
+            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+
+        }
+
+        public static void imprimirPecasCapturadas(PartidaDeXadrez partida){
+            Console.WriteLine("Peças Capturadas: ");
+            Console.Write("Brancas: ");
+            imprimirConjunto(partida.pecasCapturadas(Cor.Branca));
+            Console.WriteLine();
+            Console.Write("Pretas: ");
+            imprimirConjunto(partida.pecasCapturadas(Cor.Preta));
+        }
+
+        public static void imprimirConjunto(HashSet<Peca> conjunto){
+            Console.Write("[");
+            foreach (Peca x in conjunto){
+                Console.Write(x + " - ");
+            }
+            Console.Write("]");
+        }
+
         public static void imprimeTabuleiro(Tabuleiro tab) {
 
             for (int i = 0; i < tab.linhas; i++) {
