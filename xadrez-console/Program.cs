@@ -2,6 +2,8 @@
 using System;
 using tabuleiro;
 using PecasXadrez;
+using System.Linq.Expressions;
+
 namespace xadrez_console {
     class Program {
         static void Main(string[] args) {
@@ -11,23 +13,42 @@ namespace xadrez_console {
 
                 PartidaDeXadrez partida = new PartidaDeXadrez();
                 while (!partida.Terminada) {
-                    Console.Clear();
+                    try {
 
-                   Tela.imprimeTabuleiro(partida.tab);
-                   Console.WriteLine();
-                   Console.Write("Origem:");
-                   Posicao origem = Tela.lerposicaoxadrez().paraPosicao();
-                   Console.Write("Destino:");
-                   Posicao destino = Tela.lerposicaoxadrez().paraPosicao();
+                        Console.Clear();
+                        Tela.imprimeTabuleiro(partida.tab);
+                        Console.WriteLine();
+                        Console.WriteLine("Turno: " + partida.turno);
+                        Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
 
-                    partida.executaMovimento(origem, destino);
+                        Console.WriteLine();
+                        Console.Write("Origem: ");
+                        Posicao origem = Tela.lerPosicaoXadrez().paraPosicao();
+                        partida.validarPosicaoDeOrigem(origem);
 
+                        bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentoPossiveis();
+
+                        Console.Clear();
+                        Tela.imprimeTabuleiro(partida.tab, posicoesPossiveis);
+
+                        
+                        Console.WriteLine();
+                        Console.Write("Destino:");
+                        Posicao destino = Tela.lerPosicaoXadrez().paraPosicao();
+                        partida.validarPosicaoDeDetino(origem, destino);
+
+                        partida.realizarJogada(origem, destino);
+                    }
+                    catch (tabuleiroException e) {
+                        Console.Write(e.Message);
+                        Console.ReadLine();
+                    }
                 }
 
 
             }
             catch (tabuleiroException e) {
-                Console.WriteLine(e.Message);
+                Console.Write(e.Message);
             }
         }
     }
