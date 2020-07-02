@@ -22,6 +22,10 @@ namespace tabuleiro {
         public void incrementarQtdMovimentos() {
             qtdMovimento++;
         }
+
+        public void descrementarQtdMovimentos() {
+            qtdMovimento--;
+        }
         public bool podeMoverPara(Posicao pos){
             return movimentoPossiveis()[pos.linha, pos.coluna];
         }
